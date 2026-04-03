@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>品牌设计组命名合规分析报告 2026</title>
+<style>
+:root {
+  --green: #22c55e;
+  --green-bg: #f0fdf4;
+  --orange: #f59e0b;
+  --orange-bg: #fffbeb;
+  --red: #ef4444;
+  --red-bg: #fef2f2;
+  --blue: #3b82f6;
+  --blue-bg: #eff6ff;
+  --purple: #8b5cf6;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  background: #f8fafc;
+  color: var(--gray-800);
+  line-height: 1.6;
+  padding: 24px;
+}
+.container { max-width: 960px; margin: 0 auto; }
+h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.subtitle { color: var(--gray-500); font-size: 14px; margin-bottom: 28px; }
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .icon { font-size: 20px; }
+
+/* Score cards */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.score-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  text-align: center;
+}
+.score-card .number {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.score-card .label {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+.score-card .count {
+  font-size: 12px;
+  color: var(--gray-400);
+}
+
+/* Pie chart */
+.pie-container { display: flex; align-items: center; gap: 24px; }
+.pie {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(
+    var(--green) 0deg 350deg,
+    var(--orange) 350deg 350deg,
+    var(--red) 350deg 360deg,
+    var(--gray-300) 360deg 360deg
+  );
+  position: relative;
+}
+.pie::after {
+  content: '97%';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 800;
+  background: radial-gradient(circle, #fff 55%, transparent 56%);
+  color: var(--green);
+}
+.legend { display: flex; flex-direction: column; gap: 8px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+/* Trend */
+.trend-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 180px;
+  padding-top: 20px;
+}
+.trend-bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: flex-end;
+}
+.trend-pct { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.trend-bar {
+  width: 32px;
+  border-radius: 6px 6px 0 0;
+  min-height: 4px;
+  transition: height 0.3s;
+}
+.trend-label { font-size: 12px; color: var(--gray-500); margin-top: 6px; }
+.trend-count { font-size: 11px; color: var(--gray-400); }
+
+/* Bar chart */
+.bar-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 100px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+.bar-label { font-size: 13px; text-align: right; color: var(--gray-600); white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.bar-track { height: 20px; background: var(--gray-100); border-radius: 10px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 10px; transition: width 0.3s; min-width: 2px; }
+.bar-value { font-size: 13px; font-weight: 600; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-size: 13px; color: var(--gray-500); padding: 8px 12px; border-bottom: 2px solid var(--gray-200); }
+td { padding: 10px 12px; font-size: 14px; border-bottom: 1px solid var(--gray-100); }
+tr:hover { background: var(--gray-100); }
+.clickable { cursor: pointer; }
+.clickable:hover { background: var(--blue-bg); }
+
+/* Issue cards */
+.issue-card { background: var(--gray-100); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+.issue-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.issue-count { font-size: 12px; color: var(--gray-400); margin-left: 8px; }
+.issue-list { margin: 0; padding-left: 20px; }
+.issue-list li { font-size: 13px; color: var(--gray-600); margin-bottom: 2px; }
+
+/* Tags */
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; white-space:nowrap; }
+.tag-写法偏差 { background: var(--orange-bg); color: var(--orange); }
+.tag-非标类别 { background: var(--red-bg); color: var(--red); }
+
+/* Callout */
+.callout { border-radius: 8px; padding: 14px 16px; font-size: 14px; margin-bottom: 16px; }
+.callout.success { background: var(--green-bg); border-left: 4px solid var(--green); }
+.callout.info { background: var(--blue-bg); border-left: 4px solid var(--blue); }
+.callout.warning { background: var(--orange-bg); border-left: 4px solid var(--orange); }
+
+/* Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.modal-overlay.show { display: flex; }
+.modal-content {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.modal-header h3 { font-size: 18px; }
+.modal-close {
+  background: none; border: none; font-size: 24px; cursor: pointer;
+  color: var(--gray-400); padding: 4px 8px; border-radius: 6px;
+}
+.modal-close:hover { background: var(--gray-100); color: var(--gray-800); }
+.detail-table th { font-size: 12px; }
+.detail-table td { font-size: 13px; }
+
+/* Highlight badge */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-orange { background: var(--orange-bg); color: var(--orange); }
+.badge-red { background: var(--red-bg); color: var(--red); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .score-grid { grid-template-columns: repeat(2, 1fr); }
+  .pie-container { flex-direction: column; align-items: center; }
+  .bar-row { grid-template-columns: 100px 1fr 60px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📊 品牌设计组命名合规分析</h1>
+  <p class="subtitle">2026年数据（1月–4月） · 业务树2026版 · 更新于 2026-04-03</p>
+
+  <!-- Score cards -->
+  <div class="score-grid">
+    <div class="score-card" style="border-top:3px solid var(--green);">
+      <div class="number" style="color:var(--green);">97%</div>
+      <div class="label">合规率</div>
+      <div class="count">72/74 条</div>
+    </div>
+    <div class="score-card" style="border-top:3px solid var(--orange);">
+      <div class="number" style="color:var(--orange);">0</div>
+      <div class="label">写法偏差</div>
+      <div class="count">0%</div>
+    </div>
+    <div class="score-card" style="border-top:3px solid var(--red);">
+      <div class="number" style="color:var(--red);">2</div>
+      <div class="label">非标类别</div>
+      <div class="count">3%</div>
+    </div>
+    <div class="score-card" style="border-top:3px solid var(--gray-300);">
+      <div class="number" style="color:var(--gray-500);">0</div>
+      <div class="label">无前缀</div>
+      <div class="count">0%</div>
+    </div>
+  </div>
+
+  <!-- Overall callout -->
+  <div class="callout success">
+    <strong>🎉 整体表现优秀：</strong>2026年 74 条项目中，72 条方案名完全合规，合规率达到 <strong>97%</strong>。相比前期大幅提升，说明业务树梳理和方案名调整已见成效。
+  </div>
+
+  <!-- Pie + Legend -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🥧</span>合规分布</div>
+    <div class="pie-container">
+      <div class="pie"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div> 完全合规 72 条 (97%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--orange);"></div> 写法偏差 0 条 (0%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div> 非标类别 2 条 (3%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--gray-300);"></div> 无前缀 0 条 (0%)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly trend -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📈</span>月度合规趋势</div>
+    <div class="trend-container">
+    <div class="trend-bar-group">
+      <div class="trend-pct" style="color:var(--green);">100%</div>
+      <div class="trend-bar" style="height:100%;background:var(--green);"></div>
+      <div class="trend-label">1月</div>
+      <div class="trend-count">23条</div>
+    </div>
+    <div class="trend-bar-group">
+      <div class="trend-pct" style="color:var(--green);">100%</div>
+      <div class="trend-bar" style="height:100%;background:var(--green);"></div>
+      <div class="trend-label">2月</div>
+      <div class="trend-count">5条</div>
+    </div>
+    <div class="trend-bar-group">
+      <div class="trend-pct" style="color:var(--green);">95%</div>
+      <div class="trend-bar" style="height:95%;background:var(--green);"></div>
+      <div class="trend-label">3月</div>
+      <div class="trend-count">37条</div>
+    </div>
+    <div class="trend-bar-group">
+      <div class="trend-pct" style="color:var(--green);">100%</div>
+      <div class="trend-bar" style="height:100%;background:var(--green);"></div>
+      <div class="trend-label">4月</div>
+      <div class="trend-count">9条</div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Category bar chart -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📂</span>按需求方合规率</div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">视频号/直播</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(21/21)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">技术架构</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(20/20)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">基础</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(16/16)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">电商</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(9/9)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">公众号/小程序/支付/搜索/游戏</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(3/3)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">HR/秘书/行政</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(2/2)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">组内公共</div>
+      <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--red);"></div></div>
+      <div class="bar-value" style="color:var(--red);">0% <span style="font-size:11px;color:var(--gray-400);">(0/2)</span></div>
+    </div>
+    <div class="bar-row" style="padding:4px 0;border-radius:6px;">
+      <div class="bar-label">公关/市场</div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(1/1)</span></div>
+    </div>
+  </div>
+
+  <!-- Designer table -->
+  <div class="card">
+    <div class="card-title"><span class="icon">👤</span>设计师合规情况</div>
+    <table>
+      <thead><tr><th>设计师</th><th>总数</th><th>合规</th><th>合规率</th><th>问题</th></tr></thead>
+      <tbody>
+      <tr class=""  style="">
+        <td><strong>柳为</strong></td><td>14</td><td>14</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅</td>
+      </tr>
+      <tr class=""  style="">
+        <td><strong>李一鸣</strong></td><td>9</td><td>9</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅</td>
+      </tr>
+      <tr class="clickable" onclick="openModal('designer-杨博')" style="cursor:pointer;">
+        <td><strong>杨博</strong></td><td>10</td><td>9</td>
+        <td style="color:var(--green);font-weight:700;">90%</td>
+        <td>1条非标 <span style="font-size:11px;color:var(--gray-300);">← 点击查看</span></td>
+      </tr>
+      <tr class="clickable" onclick="openModal('designer-李鸿睿')" style="cursor:pointer;">
+        <td><strong>李鸿睿</strong></td><td>10</td><td>9</td>
+        <td style="color:var(--green);font-weight:700;">90%</td>
+        <td>1条非标 <span style="font-size:11px;color:var(--gray-300);">← 点击查看</span></td>
+      </tr>
+      <tr class=""  style="">
+        <td><strong>郑清滔</strong></td><td>7</td><td>7</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅</td>
+      </tr>
+      <tr class=""  style="">
+        <td><strong>汤鹏程</strong></td><td>7</td><td>7</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅</td>
+      </tr>
+      <tr class=""  style="">
+        <td><strong>宋予哲</strong></td><td>6</td><td>6</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅</td>
+      </tr>
+      <tr class=""  style="">
+        <td><strong>臧渠成</strong></td><td>10</td><td>10</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="callout info" style="margin-top:16px;">
+      <strong>核心发现：</strong>设计师合规率在 90%–100% 之间。需关注的有：杨博（1条不合规）、李鸿睿（1条不合规）。
+    </div>
+  </div>
+
+  <!-- Non-standard categories -->
+  <div class="card">
+    <div class="card-title"><span class="icon">❌</span>非标类别明细 <span class="badge badge-red">2 条</span></div>
+    
+    <div class="issue-card">
+      <div class="issue-title">【组内】<span class="issue-count">2次</span></div>
+      <ul class="issue-list"><li>2026年3月17日 — 【组内】2026H1 招聘 (barryyang(杨博))</li><li>2026年3月17日 — 【组内】品牌组项目命名规范 (roryli(李鸿睿))</li></ul>
+    </div>
+  </div>
+
+  <!-- Deviation details -->
+  <div class="card">
+    <div class="card-title"><span class="icon">⚠️</span>写法偏差明细 <span class="badge badge-orange">0 条</span></div>
+    <p style="color:var(--gray-400);">暂无写法偏差 🎉</p>
+  </div>
+
+  <!-- Summary & Recommendations -->
+  <div class="card">
+    <div class="card-title"><span class="icon">💡</span>分析总结与建议</div>
+    <div class="callout success">
+      <strong>✅ 总体评价：</strong>2026年合规率 97%，表现非常好。业务树梳理后，写法偏差和无前缀问题已基本消除。
+    </div>
+    <h4 style="margin:12px 0 8px;">剩余待处理项：</h4>
+    <ul style="padding-left:20px;font-size:14px;color:var(--gray-600);">
+      <li><strong>【组内】(2条)</strong>——"2026H1 招聘"和"品牌组项目命名规范"使用了【组内】前缀，该类别在业务树和命名规则表中均未列出。建议确认是否需要在业务树中新增【组内】类别，或将这类项目归入其他合适的类别。</li>
+    </ul>
+    <h4 style="margin:16px 0 8px;">后续优化方向：</h4>
+    <ul style="padding-left:20px;font-size:14px;color:var(--gray-600);">
+      <li>🏷️ 确认【组内】是否纳入标准业务树</li>
+      <li>📋 持续跟踪后续新增项目的合规情况</li>
+      <li>📊 建立月度合规率追踪机制，保持高合规水平</li>
+    </ul>
+  </div>
+
+  <p style="text-align:center;color:var(--gray-400);font-size:12px;margin-top:32px;">
+    品牌设计组命名合规分析报告 · 数据来源: 品牌设计组需求列表 · 生成时间: 2026-04-03
+  </p>
+</div>
+
+<!-- Modals -->
+
+  <div class="modal-overlay" id="designer-杨博">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>杨博 不合规明细</h3>
+        <button class="modal-close" onclick="closeModal('designer-杨博')">&times;</button>
+      </div>
+      <table class="detail-table">
+        <thead><tr><th>日期</th><th>方案名</th><th>问题类型</th><th>建议改为</th></tr></thead>
+        <tbody><tr>
+          <td>2026年3月17日</td>
+          <td>【组内】2026H1 招聘</td>
+          <td><span class="tag tag-非标类别">非标类别</span></td>
+          <td>—</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="designer-李鸿睿">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>李鸿睿 不合规明细</h3>
+        <button class="modal-close" onclick="closeModal('designer-李鸿睿')">&times;</button>
+      </div>
+      <table class="detail-table">
+        <thead><tr><th>日期</th><th>方案名</th><th>问题类型</th><th>建议改为</th></tr></thead>
+        <tbody><tr>
+          <td>2026年3月17日</td>
+          <td>【组内】品牌组项目命名规范</td>
+          <td><span class="tag tag-非标类别">非标类别</span></td>
+          <td>—</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('show');
+}
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('show');
+}
+// Close on overlay click
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.classList.remove('show');
+  }
+});
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.show').forEach(m => m.classList.remove('show'));
+  }
+});
+</script>
+</body>
+</html>
