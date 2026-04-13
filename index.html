@@ -233,7 +233,7 @@ tr:hover { background: var(--gray-100); }
 <body>
 <div class="container">
   <h1>📊 品牌设计组命名合规分析</h1>
-  <p class="subtitle">2026年数据（1月–4月） · 业务树2026版 · 更新于 2026-04-07</p>
+  <p class="subtitle">2026年数据（1月–4月） · 业务树2026版 · 更新于 2026-04-13</p>
 
   <!-- Score cards -->
   <div class="score-grid">
@@ -360,15 +360,15 @@ tr:hover { background: var(--gray-100); }
     <table>
       <thead><tr><th>设计师</th><th>总数</th><th>合规</th><th>合规率</th><th>问题</th></tr></thead>
       <tbody>
-      <tr class=""  style="">
-        <td><strong>柳为</strong></td><td>0</td><td>0</td>
-        <td style="color:var(--red);font-weight:700;">0%</td>
-        <td>全部合规 ✅</td>
+      <tr class="clickable" onclick="openModal('designer-柳为')" style="cursor:pointer;">
+        <td><strong>柳为</strong></td><td>14</td><td>14</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅ <span style="font-size:11px;color:var(--gray-300);">← 点击查看</span></td>
       </tr>
-      <tr class=""  style="">
-        <td><strong>李一鸣</strong></td><td>0</td><td>0</td>
-        <td style="color:var(--red);font-weight:700;">0%</td>
-        <td>全部合规 ✅</td>
+      <tr class="clickable" onclick="openModal('designer-李一鸣')" style="cursor:pointer;">
+        <td><strong>李一鸣</strong></td><td>10</td><td>10</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅ <span style="font-size:11px;color:var(--gray-300);">← 点击查看</span></td>
       </tr>
       <tr class="clickable" onclick="openModal('designer-杨博')" style="cursor:pointer;">
         <td><strong>杨博</strong></td><td>12</td><td>12</td>
@@ -400,10 +400,15 @@ tr:hover { background: var(--gray-100); }
         <td style="color:var(--green);font-weight:700;">100%</td>
         <td>全部合规 ✅ <span style="font-size:11px;color:var(--gray-300);">← 点击查看</span></td>
       </tr>
+      <tr class="clickable" onclick="openModal('designer-联合项目')" style="cursor:pointer;">
+        <td><strong>联合项目</strong></td><td>1</td><td>1</td>
+        <td style="color:var(--green);font-weight:700;">100%</td>
+        <td>全部合规 ✅ <span style="font-size:11px;color:var(--gray-300);">← 点击查看</span></td>
+      </tr>
       </tbody>
     </table>
     <div class="callout info" style="margin-top:16px;">
-      <strong>核心发现：</strong>设计师合规率在 0%–100% 之间。所有设计师表现优秀，整体合规率极高。
+      <strong>核心发现：</strong>设计师合规率在 100%–100% 之间。所有设计师表现优秀，整体合规率极高。
     </div>
   </div>
 
@@ -462,11 +467,157 @@ tr:hover { background: var(--gray-100); }
   </div>
 
   <p style="text-align:center;color:var(--gray-400);font-size:12px;margin-top:32px;">
-    品牌设计组命名合规分析报告 · 数据来源: 品牌设计组需求列表 · 生成时间: 2026-04-07
+    品牌设计组命名合规分析报告 · 数据来源: 品牌设计组需求列表 · 生成时间: 2026-04-13
   </p>
 </div>
 
 <!-- Modals -->
+
+  <div class="modal-overlay" id="designer-柳为">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>柳为 的项目（14条）</h3>
+        <button class="modal-close" onclick="closeModal('designer-柳为')">&times;</button>
+      </div>
+      <table class="detail-table">
+        <thead><tr><th>排期日</th><th>方案名</th><th>合规</th><th>状态</th></tr></thead>
+        <tbody><tr>
+          <td style="white-space:nowrap;">2026年1月12日</td>
+          <td>【微信小店】品牌好友日字标</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--gray-500);font-size:12px;">跟进中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年1月20日</td>
+          <td>【品牌图】应用商店配图（Windows 4.1.7）</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年1月23日</td>
+          <td>【基础体验】红包封面 AI 文字挂件</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年1月29日</td>
+          <td>【微信小店】好物推荐官字标</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--gray-500);font-size:12px;">跟进中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年2月11日</td>
+          <td>【公众号】mp 网站 logo 样式</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年2月27日</td>
+          <td>【WeGen】文字类美学标准</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月6日</td>
+          <td>【品牌图】应用商店配图（Win + Mac 4.1.8）</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月20日</td>
+          <td>【基础体验】官方账号头像</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月16日</td>
+          <td>【WeGen】人像类对战标注</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月26日</td>
+          <td>【WeGen】文字类测试集</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月26日</td>
+          <td>【WeGen】文字类 VLM 提示词</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年4月1日</td>
+          <td>【WeGen】通用测试集</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年4月1日</td>
+          <td>【微信ClawBot】标志</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年4月1日</td>
+          <td>【微信体】WeChatSans 增加 * 号</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--gray-500);font-size:12px;">跟进中</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="designer-李一鸣">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>李一鸣 的项目（10条）</h3>
+        <button class="modal-close" onclick="closeModal('designer-李一鸣')">&times;</button>
+      </div>
+      <table class="detail-table">
+        <thead><tr><th>排期日</th><th>方案名</th><th>合规</th><th>状态</th></tr></thead>
+        <tbody><tr>
+          <td style="white-space:nowrap;">2026年1月26日</td>
+          <td>【打赏礼物】2026 情人节</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年1月26日</td>
+          <td>【基础体验】朋友圈官方新春祝福图</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年1月27日</td>
+          <td>【直播知识生活】好菜跟我学激励活动</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--gray-500);font-size:12px;">无需 kk 确认</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年1月27日</td>
+          <td>【直播知识生活】灯火人间（城市烟火特辑）</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--gray-500);font-size:12px;">无需 kk 确认</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月2日</td>
+          <td>【视频号】发表器解说音色头像</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月9日</td>
+          <td>【基础体验】听一听 AI 翻唱歌曲封面</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月16日</td>
+          <td>【直播知识生活】“悦”读者活动招募页面</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--green);font-size:12px;">已完结</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月31日</td>
+          <td>【特效助手】跟手贴纸手模</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年3月31日</td>
+          <td>【特效助手】AI生图试用模特补充</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr><tr>
+          <td style="white-space:nowrap;">2026年4月9日</td>
+          <td>【直播知识生活】灯火人间-云游特辑</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="designer-杨博">
     <div class="modal-content">
@@ -816,6 +967,24 @@ tr:hover { background: var(--gray-100); }
           <td>【WeGen-Video】供应商标注结果质检</td>
           <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
           <td style="color:var(--gray-500);font-size:12px;">跟进中</td>
+        </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="designer-联合项目">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>联合项目 的项目（1条）</h3>
+        <button class="modal-close" onclick="closeModal('designer-联合项目')">&times;</button>
+      </div>
+      <table class="detail-table">
+        <thead><tr><th>排期日</th><th>方案名</th><th>合规</th><th>状态</th></tr></thead>
+        <tbody><tr>
+          <td style="white-space:nowrap;">2026年3月20日</td>
+          <td>【WeGen】通用类美学标准</td>
+          <td><span class="badge badge-green" style="font-size:11px;">✅ 合规</span></td>
+          <td style="color:var(--blue);font-size:12px;">设计中</td>
         </tr></tbody>
       </table>
     </div>
