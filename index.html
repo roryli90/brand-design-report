@@ -440,6 +440,27 @@ tr:hover { background: var(--gray-100); }
     </ul>
   </div>
 
+  <!-- Naming Calibration Tool -->
+  <div class="card" id="calibration-tool">
+    <div class="card-title"><span class="icon">🔧</span>项目命名校准工具</div>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:16px;">输入方案名，实时检查是否符合命名规范。规则与分析报告完全同步。</p>
+
+    <div style="display:flex;gap:10px;margin-bottom:16px;">
+      <input type="text" id="name-input" placeholder="例如：【微信小店】618好物节主视觉"
+        style="flex:1;padding:12px 16px;border:2px solid var(--gray-200);border-radius:8px;font-size:15px;outline:none;transition:border-color .2s;"
+        onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--gray-200)'"
+        onkeyup="checkName()">
+      <button onclick="checkName()" style="padding:12px 24px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">校验</button>
+    </div>
+
+    <div id="check-result" style="display:none;"></div>
+
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;font-size:13px;color:var(--gray-500);user-select:none;">📋 查看当前业务树所有合规类别</summary>
+      <div id="category-tree" style="margin-top:10px;columns:2;column-gap:24px;font-size:13px;color:var(--gray-600);"></div>
+    </details>
+  </div>
+
   <p style="text-align:center;color:var(--gray-400);font-size:12px;margin-top:32px;">
     品牌设计组命名合规分析报告 · 数据来源: 品牌设计组需求列表 · 生成时间: 2026-04-07
   </p>
@@ -922,6 +943,7 @@ tr:hover { background: var(--gray-100); }
   </div>
 
 <script>
+// === Modal functions ===
 function openModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.add('show');
@@ -930,17 +952,169 @@ function closeModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('show');
 }
-// Close on overlay click
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('modal-overlay')) {
     e.target.classList.remove('show');
   }
 });
-// Close on Escape
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.show').forEach(m => m.classList.remove('show'));
   }
+});
+
+// === Naming Calibration Tool ===
+const CATEGORIES = {"1-微信品牌": ["微信标志", "微信体", "品牌图", "微信官网"], "2-子业务品牌": ["微信ClawBot", "公众号", "贴图", "小程序", "微信小店", "微信搜一搜", "搜一搜", "问一问", "WeDesign", "听一听", "视频号", "直播"], "3-官方活动与传播": ["微信公开课 pro", "员工礼品", "WXG 年会"], "4-WeStore": ["WeStore"], "5-基础体验": ["基础体验", "表情", "红包封面"], "6-直播互动": ["打赏礼物", "直播知识生活"], "7-运营活动": ["微信小店"], "8-视频号创作工具": ["拍摄模板", "拍摄模版", "视频号美颜", "特效助手"], "9-图像美学": ["WeGen", "WeGen-Video"]};
+const EQUIVALENCE = {"拍摄模版": "拍摄模板", "直播打赏礼物": "打赏礼物", "Westore": "WeStore", "westore": "WeStore", "wegen": "WeGen", "视频号特效助手": "特效助手"};
+
+// Build flat set of all standard names
+const ALL_STANDARD = new Set();
+for (const cats of Object.values(CATEGORIES)) {
+  cats.forEach(c => ALL_STANDARD.add(c));
+}
+for (const k of Object.keys(EQUIVALENCE)) {
+  ALL_STANDARD.add(k);
+}
+
+// Render category tree
+(function renderTree() {
+  const el = document.getElementById('category-tree');
+  if (!el) return;
+  let html = '';
+  for (const [group, cats] of Object.entries(CATEGORIES)) {
+    html += '<div style="break-inside:avoid;margin-bottom:12px;">';
+    html += '<div style="font-weight:600;color:var(--gray-700);margin-bottom:4px;">' + group + '</div>';
+    cats.forEach(c => {
+      html += '<div style="padding-left:12px;">【' + c + '】</div>';
+    });
+    html += '</div>';
+  }
+  el.innerHTML = html;
+})();
+
+function countCnChars(s) {
+  let n = 0;
+  for (const c of s) { if (c >= '\u4e00' && c <= '\u9fff') n++; }
+  return n;
+}
+
+function checkName() {
+  const input = document.getElementById('name-input').value.trim();
+  const resultEl = document.getElementById('check-result');
+  if (!input) {
+    resultEl.style.display = 'none';
+    return;
+  }
+  resultEl.style.display = 'block';
+
+  const checks = [];
+  let overallOk = true;
+
+  // 1. Check 【】 bracket
+  const m = input.match(/【(.+?)】/);
+  if (!m) {
+    checks.push({ ok: false, label: '格式', msg: '缺少【业务类别】前缀。正确格式：【业务类别】具体案例 输出类型' });
+    overallOk = false;
+    renderResult(resultEl, checks, overallOk, input);
+    return;
+  }
+
+  const category = m[1];
+  const rest = input.substring(m.index + m[0].length).trim();
+
+  // 2. Check category is in standard list
+  const isStandard = ALL_STANDARD.has(category);
+  const isEquiv = EQUIVALENCE[category];
+
+  if (isStandard) {
+    if (isEquiv && isEquiv !== category) {
+      checks.push({ ok: true, label: '业务类别', msg: '【' + category + '】可识别（等效于【' + isEquiv + '】）' });
+    } else {
+      checks.push({ ok: true, label: '业务类别', msg: '【' + category + '】✅ 在业务树中' });
+    }
+  } else {
+    // Find closest match
+    let suggestion = findClosest(category);
+    let sugMsg = suggestion ? '，你是不是想用【' + suggestion + '】？' : '';
+    checks.push({ ok: false, label: '业务类别', msg: '【' + category + '】❌ 不在业务树中' + sugMsg });
+    overallOk = false;
+  }
+
+  // 3. Check category length (≤8 Chinese chars)
+  const catCn = countCnChars(category);
+  if (catCn > 8) {
+    checks.push({ ok: false, label: '类别长度', msg: '业务类别 ' + catCn + ' 个中文字符，超过上限 8 字' });
+    overallOk = false;
+  } else {
+    checks.push({ ok: true, label: '类别长度', msg: category.length + ' 个字符（' + catCn + ' 个中文），≤ 8 ✅' });
+  }
+
+  // 4. Check rest part (具体案例 + 输出类型)
+  if (!rest) {
+    checks.push({ ok: false, label: '具体案例', msg: '缺少具体案例（必填）' });
+    overallOk = false;
+  } else {
+    // Check total rest length
+    const restCn = countCnChars(rest);
+    if (rest.length > 30) {
+      checks.push({ ok: false, label: '内容长度', msg: '具体案例+输出类型共 ' + rest.length + ' 字符，建议精简到 12 字以内' });
+      overallOk = false;
+    } else {
+      checks.push({ ok: true, label: '具体案例', msg: rest + '（' + rest.length + ' 字符）✅' });
+    }
+  }
+
+  // 5. Check for multiple 【】
+  const allBrackets = input.match(/【.+?】/g) || [];
+  if (allBrackets.length > 1) {
+    checks.push({ ok: false, label: '多重前缀', msg: '包含 ' + allBrackets.length + ' 个【】标记，应只有 1 个' });
+    overallOk = false;
+  }
+
+  // 6. Check for parenthetical notes (备注)
+  if (/[（(]备注/.test(input)) {
+    checks.push({ ok: false, label: '备注', msg: '方案名中不应包含（备注：…），请移到智能表格的备注字段' });
+    overallOk = false;
+  }
+
+  renderResult(resultEl, checks, overallOk, input);
+}
+
+function findClosest(input) {
+  // Simple fuzzy match: find category with most character overlap
+  let best = null, bestScore = 0;
+  for (const cats of Object.values(CATEGORIES)) {
+    for (const c of cats) {
+      let score = 0;
+      for (const ch of input) { if (c.includes(ch)) score++; }
+      const ratio = score / Math.max(input.length, c.length);
+      if (ratio > bestScore && ratio > 0.3) {
+        bestScore = ratio;
+        best = c;
+      }
+    }
+  }
+  return best;
+}
+
+function renderResult(el, checks, ok, input) {
+  let html = '<div style="border-radius:8px;padding:16px;' +
+    (ok ? 'background:var(--green-bg);border-left:4px solid var(--green);' :
+           'background:var(--red-bg);border-left:4px solid var(--red);') + '">';
+  html += '<div style="font-weight:700;font-size:15px;margin-bottom:10px;">' +
+    (ok ? '✅ 完全合规' : '⚠️ 需要修正') + '</div>';
+  for (const c of checks) {
+    const icon = c.ok ? '✅' : '❌';
+    html += '<div style="font-size:13px;margin-bottom:4px;color:var(--gray-700);">' +
+      icon + ' <strong>' + c.label + '：</strong>' + c.msg + '</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// Auto-check on Enter key
+document.getElementById('name-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkName();
 });
 </script>
 </body>
