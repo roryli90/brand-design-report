@@ -91,15 +91,15 @@ h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
   border-radius: 50%;
   flex-shrink: 0;
   background: conic-gradient(
-    var(--green) 0deg 356deg,
-    var(--orange) 356deg 360deg,
+    var(--green) 0deg 360deg,
+    var(--orange) 360deg 360deg,
     var(--red) 360deg 360deg,
     var(--gray-300) 360deg 360deg
   );
   position: relative;
 }
 .pie::after {
-  content: '99%';
+  content: '100%';
   position: absolute;
   inset: 0;
   display: flex;
@@ -238,14 +238,14 @@ tr:hover { background: var(--gray-100); }
   <!-- Score cards -->
   <div class="score-grid">
     <div class="score-card" style="border-top:3px solid var(--green);">
-      <div class="number" style="color:var(--green);">99%</div>
+      <div class="number" style="color:var(--green);">100%</div>
       <div class="label">合规率</div>
-      <div class="count">79/80 条</div>
+      <div class="count">80/80 条</div>
     </div>
     <div class="score-card" style="border-top:3px solid var(--orange);">
-      <div class="number" style="color:var(--orange);">1</div>
+      <div class="number" style="color:var(--orange);">0</div>
       <div class="label">写法偏差</div>
-      <div class="count">1%</div>
+      <div class="count">0%</div>
     </div>
     <div class="score-card" style="border-top:3px solid var(--red);">
       <div class="number" style="color:var(--red);">0</div>
@@ -261,7 +261,7 @@ tr:hover { background: var(--gray-100); }
 
   <!-- Overall callout -->
   <div class="callout success">
-    <strong>🎉 全员满分：</strong>2026年 80 条项目，79 条方案名全部合规，合规率 <strong>99%</strong>。业务树梳理和方案名规范化工作已圆满完成。
+    <strong>🎉 全员满分：</strong>2026年 80 条项目，80 条方案名全部合规，合规率 <strong>100%</strong>。业务树梳理和方案名规范化工作已圆满完成。
   </div>
 
   <!-- Pie + Legend -->
@@ -270,8 +270,8 @@ tr:hover { background: var(--gray-100); }
     <div class="pie-container">
       <div class="pie"></div>
       <div class="legend">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div> 完全合规 79 条 (99%)</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--orange);"></div> 写法偏差 1 条 (1%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div> 完全合规 80 条 (100%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--orange);"></div> 写法偏差 0 条 (0%)</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div> 非标类别 0 条 (0%)</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--gray-300);"></div> 无前缀 0 条 (0%)</div>
       </div>
@@ -301,8 +301,8 @@ tr:hover { background: var(--gray-100); }
       <div class="trend-count">37条</div>
     </div>
     <div class="trend-bar-group">
-      <div class="trend-pct" style="color:var(--green);">93%</div>
-      <div class="trend-bar" style="height:93%;background:var(--green);"></div>
+      <div class="trend-pct" style="color:var(--green);">100%</div>
+      <div class="trend-bar" style="height:100%;background:var(--green);"></div>
       <div class="trend-label">4月</div>
       <div class="trend-count">15条</div>
     </div>
@@ -314,8 +314,8 @@ tr:hover { background: var(--gray-100); }
     <div class="card-title"><span class="icon">📂</span>按需求方合规率</div>
     <div class="bar-row" style="padding:4px 0;border-radius:6px;">
       <div class="bar-label">视频号/直播</div>
-      <div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div>
-      <div class="bar-value" style="color:var(--green);">95% <span style="font-size:11px;color:var(--gray-400);">(21/22)</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <div class="bar-value" style="color:var(--green);">100% <span style="font-size:11px;color:var(--gray-400);">(22/22)</span></div>
     </div>
     <div class="bar-row" style="padding:4px 0;border-radius:6px;">
       <div class="bar-label">技术架构</div>
@@ -415,19 +415,15 @@ tr:hover { background: var(--gray-100); }
 
   <!-- Deviation details -->
   <div class="card">
-    <div class="card-title"><span class="icon">⚠️</span>写法偏差明细 <span class="badge badge-orange">1 条</span></div>
-    
-    <div class="issue-card">
-      <div class="issue-title">【直播泛知识】→ 应为【直播知识生活】<span class="issue-count">1次</span></div>
-      <ul class="issue-list"><li>2026年4月9日 — 【直播泛知识】灯火人间-云游特辑 (李一鸣)</li></ul>
-    </div>
+    <div class="card-title"><span class="icon">⚠️</span>写法偏差明细 <span class="badge badge-orange">0 条</span></div>
+    <p style="color:var(--gray-400);">暂无写法偏差 🎉</p>
   </div>
 
   <!-- Summary & Recommendations -->
   <div class="card">
     <div class="card-title"><span class="icon">💡</span>分析总结与建议</div>
     <div class="callout success">
-      <strong>✅ 总体评价：</strong>2026年 80 条项目全部合规，合规率 <strong>99%</strong>。经过业务树梳理和方案名统一调整，写法偏差、非标类别和无前缀问题已全部消除。
+      <strong>✅ 总体评价：</strong>2026年 80 条项目全部合规，合规率 <strong>100%</strong>。经过业务树梳理和方案名统一调整，写法偏差、非标类别和无前缀问题已全部消除。
     </div>
     <h4 style="margin:12px 0 8px;">已达成的成果：</h4>
     <ul style="padding-left:20px;font-size:14px;color:var(--gray-600);">
